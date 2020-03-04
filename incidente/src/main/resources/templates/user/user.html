@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>All Employees</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <meta charset = "ISO-8859-1" />
+    <link href = "css/styles.css" rel = "stylesheet"/>
+    <title>Spring Boot Application</title>
+    <div th:replace="fragments/header :: header-css"/>
 </head>
-
 <body>
+    <div th:replace="fragments/header :: header"/>
+
     <div class="container my-2">
     <div class="card">
     <div class="card-body">
@@ -57,6 +55,7 @@
     </div>
     </div>
     </div>
-</body>
 
+    <div th:replace="fragments/footer :: footer"/>
+</body>
 </html>
