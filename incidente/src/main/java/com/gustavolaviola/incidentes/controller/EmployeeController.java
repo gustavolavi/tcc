@@ -4,13 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,7 +13,7 @@ import com.gustavolaviola.incidentes.model.Employee;
 import com.gustavolaviola.incidentes.repository.EmployeeRepository;
 
 
-@RestController
+@Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 	private EmployeeRepository employeeRepository;
@@ -28,39 +23,39 @@ public class EmployeeController {
 		this.employeeRepository = employeeRepository;
 	}
 	
-	@GetMapping
-	public ResponseEntity getAll() {
-		return ResponseEntity.ok(employeeRepository.findAll());
+	@RequestMapping(method = RequestMethod.GET)
+	public String getAll() {
+		employeeRepository.findAll();
+		return "index";
 	}
-	
-	@GetMapping("{id}")
-	public ResponseEntity get(@PathVariable int id) {
-		return ResponseEntity.ok(employeeRepository.findById(id));
+
+	@RequestMapping(value = "/{id}}")
+	public String get(@PathVariable int id) {
+		employeeRepository.findById(id);
+		return "index";
 	}
-	
-	@PostMapping
-	public ResponseEntity create(UriComponentsBuilder uriComponentsBuilder,Employee employee) {
+
+	@RequestMapping(value = "/{id}}", method = RequestMethod.POST)
+	public String create(Employee employee) {
 		employee = employeeRepository.save(employee);
-		UriComponents uriComponents = uriComponentsBuilder.path("/employee/{id}").buildAndExpand(employee.getId());
-	    return ResponseEntity.ok(employee).created(uriComponents.toUri()).build();
+
+		return "index";
 	}
-	
-	@PutMapping("{id}")
-	public ResponseEntity update(UriComponentsBuilder uriComponentsBuilder,@PathVariable int id,Employee employee) {
+
+	@RequestMapping(value = "/update/{id}}", method = RequestMethod.POST)
+	public String update(@PathVariable int id,Employee employee) {
 		employee.setId(id);
 		employeeRepository.save(employee);
-		UriComponents uriComponents = uriComponentsBuilder.path("/employee/{id}").buildAndExpand(employee.getId());
-	    return ResponseEntity.ok(uriComponents.toUri());
+		return "index";
 	}
-	
-	@DeleteMapping("{id}")
-	public ResponseEntity delete(@PathVariable int id) {
+
+	@RequestMapping(value = "/delete/{id}}")
+	public String delete(@PathVariable int id) {
 		Optional<Employee> employee = employeeRepository.findById(id);
 		if(employee.isPresent()) {
 			employeeRepository.delete(employee.get());
-			return ResponseEntity.ok().build();
 		}
-		return ResponseEntity.notFound().build();
+		return "index";
 	}
 	
 	
