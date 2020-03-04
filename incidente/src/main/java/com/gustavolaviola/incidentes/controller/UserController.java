@@ -42,19 +42,5 @@ public class UserController {
 		return "user/add-edit-user";
 	}
 
-
-	@RequestMapping(path = "/create", method = RequestMethod.POST)
-	public String createOrUpdateEmployee(User user)
-	{
-		userRepository.save(user);
-		return "redirect:/user";
-	}
-
-	@RequestMapping(value = "/delete/{id}")
-	public String delete(@PathVariable int id) {
-		userRepository.deleteById(id);
-		return "redirect:/user";
-	}
-	
 	
 }
