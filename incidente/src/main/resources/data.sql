@@ -1,1 +1,1 @@
-REPLACE INTO 'role' VALUES (1,'ADMIN');
+INSERT INTO role(id, name) VALUES (null,"ADMIN"),(null,"USER");

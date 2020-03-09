@@ -1,7 +1,6 @@
 package com.gustavolaviola.incidentes.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import com.gustavolaviola.incidentes.model.Employee;
 import org.springframework.stereotype.Repository;

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
 @Service
 public class UserService {
@@ -31,15 +31,14 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User findUserByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public User findUserByUsername(String userName) {
+        return userRepository.findByUsername(userName);
     }
 
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(true);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        Role userRole = roleRepository.getOne(1);
+        user.setRoles(new ArrayList<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
 

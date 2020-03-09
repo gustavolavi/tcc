@@ -1,5 +1,6 @@
 package com.gustavolaviola.incidentes.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Process {
+public class Process implements Serializable{
+
+	private static final long serialVersionUID = -3507230141354659797L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

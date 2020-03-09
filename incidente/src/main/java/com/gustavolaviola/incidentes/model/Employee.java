@@ -1,5 +1,6 @@
 package com.gustavolaviola.incidentes.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,7 +23,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Employee {
+public class Employee implements Serializable{
+
+	private static final long serialVersionUID = 5227778611574761657L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

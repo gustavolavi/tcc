@@ -3,6 +3,7 @@ package com.gustavolaviola.incidentes;
 import com.gustavolaviola.incidentes.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -31,15 +32,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
+        http.cors().and().csrf().disable().authorizeRequests()
+                    .antMatchers("/").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+                    .antMatchers("/registration").permitAll()
+                    .antMatchers("/user").hasAuthority("ADMIN").anyRequest().authenticated()                
+                .and().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
+                .defaultSuccessUrl("/login")
                 .usernameParameter("user_name")
                 .passwordParameter("password")
                 .and().logout()

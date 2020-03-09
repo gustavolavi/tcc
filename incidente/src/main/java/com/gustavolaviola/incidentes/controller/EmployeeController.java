@@ -2,15 +2,15 @@ package com.gustavolaviola.incidentes.controller;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
 import com.gustavolaviola.incidentes.model.Employee;
 import com.gustavolaviola.incidentes.repository.EmployeeRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -23,39 +23,29 @@ public class EmployeeController {
 		this.employeeRepository = employeeRepository;
 	}
 	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String getAll() {
-		employeeRepository.findAll();
-		return "index";
+	public ModelAndView getAll() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("employees", employeeRepository.findAll());
+        
+        modelAndView.setViewName( "employee/employee");
+        return modelAndView;
 	}
 
-	@RequestMapping(value = "/{id}}")
-	public String get(@PathVariable int id) {
-		employeeRepository.findById(id);
-		return "index";
-	}
+	@RequestMapping(path = {"/edit", "/edit/{id}"})
+	public ModelAndView editUserById(@PathVariable("id") Optional<Integer> id)
+	{
+		ModelAndView modelAndView = new ModelAndView();
 
-	@RequestMapping(value = "/{id}}", method = RequestMethod.POST)
-	public String create(Employee employee) {
-		employee = employeeRepository.save(employee);
-
-		return "index";
-	}
-
-	@RequestMapping(value = "/update/{id}}", method = RequestMethod.POST)
-	public String update(@PathVariable int id,Employee employee) {
-		employee.setId(id);
-		employeeRepository.save(employee);
-		return "index";
-	}
-
-	@RequestMapping(value = "/delete/{id}}")
-	public String delete(@PathVariable int id) {
-		Optional<Employee> employee = employeeRepository.findById(id);
-		if(employee.isPresent()) {
-			employeeRepository.delete(employee.get());
+		if (id.isPresent()) {
+			Employee entity = employeeRepository.findById(id.get()).get();
+			modelAndView.addObject("employee", entity);
+		} else {
+			modelAndView.addObject("employee", new Employee());
 		}
-		return "index";
+        modelAndView.setViewName( "employee/add-edit-user");
+		return modelAndView;
 	}
 	
 	

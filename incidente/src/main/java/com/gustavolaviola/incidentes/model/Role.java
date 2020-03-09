@@ -7,14 +7,23 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role {
+public class Role implements GrantedAuthority{
+    private static final long serialVersionUID = -4860764085868765836L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String role;
+    private String name;
+
+    @Override
+    public String getAuthority() {
+        return this.name;
+    }
 }

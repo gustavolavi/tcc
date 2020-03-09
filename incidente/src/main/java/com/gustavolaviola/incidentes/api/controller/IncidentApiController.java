@@ -36,7 +36,7 @@ public class IncidentApiController {
 		return ResponseEntity.ok(incidentRepository.findById(id));
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST,  produces = { "application/json", "application/xml" })
+	@RequestMapping(method = RequestMethod.POST,  produces = { "application/json", "application/xml" })
 	public ResponseEntity create(UriComponentsBuilder uriComponentsBuilder,Incident incident) {
 		incident = incidentRepository.save(incident);
 		UriComponents uriComponents = uriComponentsBuilder.path("/incident/{id}").buildAndExpand(incident.getId());
