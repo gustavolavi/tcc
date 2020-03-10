@@ -1,0 +1,12 @@
+<p>incident-detail works!</p>
+
+<div *ngIf="incident" class="incidents">
+    <h2>{{incident.title | uppercase}} Details</h2>
+    <div><span>Name: </span>{{incident.name}}</div>
+    <div><span>Description: </span>{{incident.description}}</div>
+    <div>
+      <button routerLink="/add/{{incident.id}}">
+        Edit
+      </button>
+    </div>
+  </div>

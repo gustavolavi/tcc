@@ -1,0 +1,8 @@
+<p>incident works!</p>
+
+<div class="incidents">
+    <div *ngFor="let inc of incidents; let i=index;">
+        <h3>{{inc.name}} - {{inc.title}}</h3>
+        <p>{{inc.description}}</p>
+    </div>
+</div>
