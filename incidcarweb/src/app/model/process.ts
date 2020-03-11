@@ -1,12 +1,11 @@
 import { Task } from './task';
-import { User } from './user';
+import { Employee } from './employee';
 
 export interface Process {
     id: number;
-    name: string;
     title: string;
     description: string;
     tasks?: Task[];
-    Users?: User[];
-    Manager?: User;
+    employees?: Employee[];
+    Manager?: Employee;
   }

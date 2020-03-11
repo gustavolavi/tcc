@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   @Input() user: User = {    
     id: 0,
     name: '',
-    username: '',
+    email: '',
     password: '' 
   };
 
@@ -27,11 +27,11 @@ export class AppComponent implements OnInit {
   login() {
     if(this.logade){
       this.logade = false;
-      this.user.username = '';
+      this.user.email = '';
       this.user.password = ''; 
     };
     
-    if(this.user.username.length>0 && this.user.password.length > 0){
+    if(this.user.email.length>0 && this.user.password.length > 0){
       this.logade = true;
     }
     this.cookieService.set('user', JSON.stringify(this.user));

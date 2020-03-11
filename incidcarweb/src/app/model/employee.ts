@@ -5,4 +5,5 @@ export interface Employee {
   id: number;
   user?: User;
   process?: Process;
+  processes?: Process[];
 }
