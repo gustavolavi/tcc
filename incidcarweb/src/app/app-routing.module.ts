@@ -8,7 +8,8 @@ import { IncidentDetailComponent } from './incident-detail/incident-detail.compo
 const routes: Routes = [
   { path: 'incidents', component: IncidentComponent, data: { title: 'Incident List' }},
   { path: 'incidents/add', component: IncidentAddComponent, data: { title: 'Incident add' }},
-  { path: 'incidents/detail/:id', component: IncidentDetailComponent, data: { title: 'Incident detail' }},
+  { path: 'incidents/add/:id', component: IncidentAddComponent, data: { title: 'Incident add' }},
+  { path: 'incidents/:id', component: IncidentDetailComponent, data: { title: 'Incident detail' }},
   { path: '', redirectTo: '/incidents', pathMatch: 'full'}
   ];
 

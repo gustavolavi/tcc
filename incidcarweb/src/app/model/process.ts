@@ -7,5 +7,5 @@ export interface Process {
     description: string;
     tasks?: Task[];
     employees?: Employee[];
-    Manager?: Employee;
+    manager?: Employee;
   }

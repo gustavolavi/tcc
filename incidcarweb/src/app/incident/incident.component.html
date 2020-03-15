@@ -1,8 +1,10 @@
-<p>incident works!</p>
-
 <div class="incidents">
     <div *ngFor="let inc of incidents; let i=index;">
-        <h3>{{inc.name}} - {{inc.title}}</h3>
-        <p>{{inc.description}}</p>
+        <h2>{{inc.title}}</h2>
+        <small>by: {{inc.user.name}}</small> - <a class="btn btn-link" routerLink="/incidents/{{+inc.id}}">detalhes</a>
+        <div>
+            {{inc.description}}
+        </div>
+        <hr />
     </div>
 </div>

@@ -2,6 +2,7 @@ package com.gustavolaviola.incidentes.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,13 @@ public class Incident implements Serializable{
 	private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+	@JoinColumn(name = "id_user")
 	private User user;
+
+	@ManyToOne
+    @JoinColumn(name = "id_employeer")
+	private Employee employee;
+
 	private String title;
 	@Lob
 	private String description;

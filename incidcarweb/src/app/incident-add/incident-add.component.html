@@ -1,17 +1,12 @@
-<p>incident-add works!</p>
-
 <div>
-    <h2>Incident Add</h2>
-    <div>
-      <label>Incident Name:
-        <input [(ngModel)]="incidentData.name" placeholder="Incident Name"/>
-      </label><br>
-      <label>Incident Title:
-        <input [(ngModel)]="incidentData.title" placeholder="Incident Title"/>
-      </label><br>
-      <label>Incident Desc:
-        <input [(ngModel)]="incidentData.description" placeholder="Incident Description"/>
-      </label><br>
-    </div>
-    <button (click)="addIncident()">Save</button>
+  <h2>Incident Add</h2>
+  <div>
+    <label>Incident Title:
+      <input [(ngModel)]="incidentData.title" placeholder="Incident Title" />
+    </label><br>
+    <label>Incident Desc:
+      <input [(ngModel)]="incidentData.description" placeholder="Incident Description" />
+    </label><br>
   </div>
+  <button class="btn btn-primary" (click)="addIncident()">Save</button>
+</div>

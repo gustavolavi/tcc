@@ -36,14 +36,14 @@ public class Process implements Serializable{
 	@Lob
 	private String description;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Task> tasks;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_employee")
     private Employee manager;
 	
-    @ManyToMany(mappedBy = "processes",fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToMany(mappedBy = "processes",cascade = CascadeType.DETACH)
     private List<Employee> employees;
 
 }

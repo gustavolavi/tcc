@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IncidentService } from '../incident.service';
 import { Incident } from '../model/incident';
+import { User } from '../model/user';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-incident-detail',
@@ -10,16 +12,34 @@ import { Incident } from '../model/incident';
 })
 export class IncidentDetailComponent implements OnInit {
 
-  incident:Incident;
+  user: User = { email: '', id: 0, name: '', password: '', username: '' };
+  incident: Incident;
 
-  constructor(public rest:IncidentService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public rest: IncidentService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit() {
-    /*
-    this.rest.getIncident(this.route.snapshot.params['id']).subscribe((data: {}) => {
-      console.log(data);
+    if (this.cookieService.get('user'))
+      this.user = JSON.parse(this.cookieService.get('user'));
+    else
+      this.router.navigate(['']);
+
+    this.rest.getIncident(this.route.snapshot.params['id']).subscribe((data: Incident) => {
       this.incident = data;
     });
-    */
+  }
+
+
+  getIncident() {
+    this.incident.employee = this.user.employee;
+    console.log(this.incident);
+    this.rest.updateIncident(this.incident.id, this.incident).subscribe((result) => {
+      this.incident = result
+    }, (err) => {
+      console.log(err);
+    });
   }
 }

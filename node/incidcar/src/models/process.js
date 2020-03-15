@@ -1,20 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
     const Process = sequelize.define('Process', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        name: DataTypes.STRING,
-        description: DataTypes.STRING
+        Name: DataTypes.STRING,
+        Description: DataTypes.STRING
     });
 
     Process.associate = function (models) {
-        Process.hasMany(models.Task);
-        Process.belongsTo(models.Employee, {
-            foreignKey: 'managerId'
+        Process.hasMany(models.Task, {
+            as: 'Tasks'
         });
-        Process.belongsToMany(models.Employee, { through: 'EmployeeProcess' });
+        Process.belongsTo(models.Employee, {
+            foreignKey: 'ManagerId',
+            as: 'Manager'
+        });
+        Process.belongsToMany(models.Employee, {
+            through: 'EmployeeProcess',
+            foreignKey: 'EmployeeId',
+            as: 'Employees'
+        });
     };
 
     return Process;

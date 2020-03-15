@@ -12,7 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,11 +34,13 @@ public class Employee implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_user")
+	@JsonIgnoreProperties({"employee"})
 	private User user;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinTable(name = "employee_process", joinColumns = @JoinColumn(name = "id_employee"), inverseJoinColumns = @JoinColumn(name = "id_process"))
 	private List<Process> processes;
 }

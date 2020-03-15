@@ -2,11 +2,11 @@
 
 <div *ngIf="incident" class="incidents">
     <h2>{{incident.title | uppercase}} Details</h2>
-    <div><span>Name: </span>{{incident.name}}</div>
+    <div><span>User: </span>{{incident.user.name}}</div>
+    <div *ngIf="incident.employee != null"><span>Employee: </span>{{incident.employee.user.name}}</div>
     <div><span>Description: </span>{{incident.description}}</div>
     <div>
-      <button routerLink="/add/{{incident.id}}">
-        Edit
-      </button>
+      <a class="btn btn-info" routerLink="/incidents/add/{{+incident.id}}">detalhes</a>
+      <button class="btn btn-primary" *ngIf="user.employee != null" (click)="getIncident()">Get incident</button>
     </div>
-  </div>
+</div>

@@ -1,21 +1,21 @@
+
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        name: DataTypes.STRING,
-        email: DataTypes.STRING,
-        password: DataTypes.STRING,
+        Name: DataTypes.STRING,
+        Email: DataTypes.STRING,
+        Password: DataTypes.STRING,
     });
-  
+
     User.associate = function (models) {
         User.hasMany(models.Incident, {
-            foreignKey: 'userId'
+            foreignKey: 'UserId',
+            onDelete: 'set null',
+            onUpdate: 'set null'
         });
         User.hasOne(models.Employee, {
-            foreignKey: 'userId'
+            foreignKey: 'UserId',
+            onDelete: 'set null',
+            onUpdate: 'set null'
         });
     };
 

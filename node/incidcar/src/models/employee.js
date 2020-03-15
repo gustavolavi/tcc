@@ -1,24 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
     const Employee = sequelize.define('Employee', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        }
+        Cargo : DataTypes.STRING
     });
   
     Employee.associate = function (models) {
         Employee.hasOne(models.Incident, {
-            foreignKey: 'employeeId'
+            foreignKey: 'EmployeeId'
         });
         Employee.hasOne(models.Process, {
-            foreignKey: 'managerId'
+            foreignKey: 'ManagerId'
         });
         Employee.belongsTo(models.User, {
-            foreignKey: 'userId'
+            foreignKey: 'UserId',
+            onDelete : "CASCADE"
         });
         Employee.belongsToMany(models.Process, { 
-            through: 'EmployeeProcess' 
+            through: 'EmployeeProcess',
+            foreignKey: 'ProcessId',
+            as: 'processes',
+            onDelete : "CASCADE"
         });
     };
 

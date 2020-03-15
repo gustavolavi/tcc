@@ -1,22 +1,24 @@
 package com.gustavolaviola.incidentes.model;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Data
@@ -24,7 +26,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User implements UserDetails{
+public class User implements Serializable{
 	private static final long serialVersionUID = 4046182767832994153L;
 	
 	@Id
@@ -40,37 +42,10 @@ public class User implements UserDetails{
 	@NotEmpty
     @Column(nullable = false, unique = true)
 	private String username;
-
-	@ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-	private List<Role> roles = new ArrayList<>();
 	
-	@Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
-    }
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@OneToOne(mappedBy = "user")
+	@JsonIgnoreProperties({"user"})
+	private Employee employee;
+	
+
 }

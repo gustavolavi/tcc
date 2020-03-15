@@ -8,7 +8,7 @@ router.get('/:incidentId?', (req, res) => {
   let query;
   if (incidentId) {
     query = Incident.findOne({
-      where: { id: Number(incidentId) },
+      where: { Id: Number(incidentId) },
       include: User
     });
   } else {
@@ -24,12 +24,12 @@ router.put('/:incidentId', (req, res) => {
   const {  title,description,userId} = req.body;
 
   let query = Incident.update({
-    title: title,
-    description: description,
-    userId: userId
+    Title: title,
+    Description: description,
+    UserId: userId
   }, {
       where: {
-        id: incidentId
+        Id: incidentId
       }
     });
 
@@ -40,10 +40,10 @@ router.post('/', (req, res) => {
   const { title,description,userId,employeeId} = req.body;
 
   let query = Incident.create({
-    title: title,
-    description: description,
-    userId: userId,
-    employeeId: employeeId
+    Title: title,
+    Description: description,
+    UserId: userId,
+    EmployeeId: employeeId
   });
 
   return query.then(data => res.json(data));
@@ -54,7 +54,7 @@ router.delete('/:incidentId', (req, res) => {
 
   let query = Incident.destroy({
     where: {
-      id: incidentId
+      Id: incidentId
     }
   });
 

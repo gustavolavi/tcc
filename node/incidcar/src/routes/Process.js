@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { Process } = require('../models');
+var { Process, Task, Employee} = require('../models');
 
 router.get('/:processId?', (req, res) => {
   const { processId } = req.params;
@@ -8,25 +8,40 @@ router.get('/:processId?', (req, res) => {
   let query;
   if (processId) {
     query = Process.findOne({
-      where: { id: Number(processId) }
+      where: { id: Number(processId) },
+      include: 'Tasks'
     });
   } else {
-    query = Process.findAll();
+    query = Process.findAll({
+      include: [
+        {
+          model: Task,
+          as: 'Tasks',
+          required: false,
+          attributes: ['Id', 'Name', 'Description']
+        },
+        {
+          model: Employee,
+          as: 'Manager',
+          required: false,
+          attributes: ['Id'],
+        }]
+    });
   }
   return query.then(processs => res.json(processs));
 })
 
 router.put('/:processId', (req, res) => {
   const { processId } = req.params;
-  const { name, description, managerId } = req.body;
+  const { Name, Description, ManagerId } = req.body;
 
   let query = Process.update({
-    name: name,
-    description: description,
-    managerId: managerId
+    Name: Name,
+    Description: Description,
+    ManagerId: ManagerId
   }, {
       where: {
-        id: processId
+        Id: processId
       }
     });
 
@@ -34,12 +49,12 @@ router.put('/:processId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, description, managerId } = req.body;
+  const { Name, Description, ManagerId } = req.body;
 
   let query = Process.create({
-    name: name,
-    description: description,
-    managerId: managerId
+    Name: Name,
+    Description: Description,
+    ManagerId: ManagerId
   });
 
   return query.then(processs => res.json(processs));
@@ -50,7 +65,7 @@ router.delete('/:processId', (req, res) => {
 
   let query = Process.destroy({
     where: {
-      id: processId
+      Id: processId
     }
   });
 

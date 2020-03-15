@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var { User } = require('../models');
 
 router.get('/:userId?', (req, res) => {
@@ -8,7 +9,7 @@ router.get('/:userId?', (req, res) => {
   let query;
   if (userId) {
     query = User.findOne({
-      where: { id: Number(userId) }
+      where: { Id: Number(userId) }
     });
   } else {
     query = User.findAll();
@@ -18,15 +19,15 @@ router.get('/:userId?', (req, res) => {
 
 router.put('/:userId', (req, res) => {
   const { userId } = req.params;
-  const { name, email, password } = req.body;
+  const { Name, Email, Password } = req.body;
 
   let query = User.update({
-    name: name,
-    email: email,
-    password: password
+    Name: Name,
+    Email: Email,
+    Password: Password
   }, {
       where: {
-        id: userId
+        Id: userId
       }
     });
 
@@ -34,12 +35,12 @@ router.put('/:userId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, email, password } = req.body;
+  const { Name, Email, Password } = req.body;
 
   let query = User.create({
-    name: name,
-    email: email,
-    password: password
+    Name: Name,
+    Email: Email,
+    Password: Password
   });
 
   return query.then(users => res.json(users));
@@ -50,7 +51,7 @@ router.delete('/:userId', (req, res) => {
 
   let query = User.destroy({
     where: {
-      id: userId
+      Id: userId
     }
   });
 
