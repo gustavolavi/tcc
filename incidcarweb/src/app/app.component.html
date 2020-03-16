@@ -15,7 +15,10 @@
                         <a class="nav-link" *ngIf="logade" [routerLink]="['/incidents/add']">Incidents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" *ngIf="user.employee != null" [routerLink]="['/process']">Process</a>
+                        <a class="nav-link" *ngIf="user.employee != null" [routerLink]="['/processes']">Process</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" *ngIf="user.employee != null" [routerLink]="['/processes/add']">Process</a>
                     </li>
                 </ul>
             </div>

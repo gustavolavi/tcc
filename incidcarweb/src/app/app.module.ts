@@ -10,12 +10,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { IncidentAddComponent } from './incident-add/incident-add.component';
 import { IncidentDetailComponent } from './incident-detail/incident-detail.component';
 
+import { ProcessAddComponent } from './process/process-add/process-add.component';
+import { ProcessListComponent } from './process/process-list/process-list.component';
+import { ProcessDetailComponent } from './process/process-detail/process-detail.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     IncidentComponent,
     IncidentAddComponent,
-    IncidentDetailComponent
+    IncidentDetailComponent,
+    ProcessAddComponent,
+    ProcessListComponent,
+    ProcessDetailComponent
   ],
   imports: [
     BrowserModule,

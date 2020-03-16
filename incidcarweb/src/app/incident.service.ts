@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Incident } from './model/incident';
 import { User } from './model/user';
+import { Process } from './model/process';
+import { Employee } from './model/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,33 @@ export class IncidentService {
   deleteIncident(id: number): Observable<any> {
     return this.http.delete<Incident>(this.endpoint + 'incidents/' + id, this.httpOptions).pipe(
       catchError(this.handleError<any>('deleteIncident'))
+    );
+  }
+
+
+
+  getProcess(id: number): Observable<Process> {
+    return this.http.get<Process>(this.endpoint + 'processes/' + id).pipe(
+      catchError(this.handleError<any>('getProcess'))
+    );
+  }
+
+  addProcess(process: Process): Observable<Process> {
+    return this.http.post<Process>(this.endpoint + 'processes', process, this.httpOptions).pipe(
+      catchError(this.handleError<any>('addProcess'))
+    );
+  }
+
+  getProcesses(): Observable<Process[]> {
+    return this.http.get<Process[]>(this.endpoint + 'processes').pipe(
+      catchError(this.handleError<any>('getProcesses'))
+    );
+  }
+
+  
+  getEmployees(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.endpoint + 'employees').pipe(
+      catchError(this.handleError<any>('getProcesses'))
     );
   }
 

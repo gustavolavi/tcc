@@ -6,7 +6,7 @@
     <div *ngIf="incident.employee != null"><span>Employee: </span>{{incident.employee.user.name}}</div>
     <div><span>Description: </span>{{incident.description}}</div>
     <div>
-      <a class="btn btn-info" routerLink="/incidents/add/{{+incident.id}}">detalhes</a>
+      <a class="btn btn-info" routerLink="/incidents/add/{{incident.id}}">Edit</a>
       <button class="btn btn-primary" *ngIf="user.employee != null" (click)="getIncident()">Get incident</button>
     </div>
 </div>
