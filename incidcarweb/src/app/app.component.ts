@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
         if (data) {
           this.user = data;
           this.logade = true;
-          this.cookieService.set('user', JSON.stringify(this.user));
+          document.cookie =`user=${JSON.stringify(this.user)};`
         }
       });
     }
