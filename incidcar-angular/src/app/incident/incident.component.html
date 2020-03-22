@@ -1,0 +1,13 @@
+<div class="incidents">
+    <div class="spinner-border" *ngIf="loading" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div *ngFor="let inc of incidents; let i=index;">
+        <h2>{{inc.title}}</h2>
+        <small>by: {{inc.user.name}}</small> - <a class="btn btn-link" routerLink="/incidents/{{inc.id}}">Detail</a>
+        <div>
+            {{inc.description}}
+        </div>
+        <hr />
+    </div>
+</div>
