@@ -14,7 +14,10 @@ import { Employee } from 'src/app/model/employee';
 export class ProcessAddComponent implements OnInit {
   emplyees: Employee[] = [];
   user: User = { email: '', id: 0, name: '', password: '', username: '' };
-  @Input() process: Process = { id: 0, title: '', description: '', tasks: [{ id: 0, name: '', description: '', ativo: false, state: '' }] };
+  @Input() process: Process = {
+    id: 0, title: '', description: '', manager: { id: 0 },
+    tasks: [{ id: 0, name: '', description: '', ativo: false, state: '' }]
+  };
 
   constructor(
     public rest: IncidentService,
@@ -45,10 +48,19 @@ export class ProcessAddComponent implements OnInit {
   }
 
   addProcess() {
-    this.rest.addProcess(this.process).subscribe((result) => {
-      this.router.navigate(['processes']);
-    }, (err) => {
-      console.log(err);
-    });
+    console.log(this.process);
+    if (this.route.snapshot.params['id']) {
+      this.rest.updateProcess(this.process.id, this.process).subscribe((result) => {
+        this.router.navigate(['processes']);
+      }, (err) => {
+        console.log(err);
+      });
+    } else {
+      this.rest.addProcess(this.process).subscribe((result) => {
+        this.router.navigate(['processes']);
+      }, (err) => {
+        console.log(err);
+      });
+    }
   }
 }

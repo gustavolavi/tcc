@@ -65,6 +65,12 @@ export class IncidentService {
     );
   }
 
+  updateProcess(id: number, process: Process): Observable<Process> {
+    return this.http.put(this.endpoint + 'processes/' + id, JSON.stringify(process), this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateProcess'))
+    );
+  }
+
   addProcess(process: Process): Observable<Process> {
     return this.http.post<Process>(this.endpoint + 'processes', process, this.httpOptions).pipe(
       catchError(this.handleError<any>('addProcess'))

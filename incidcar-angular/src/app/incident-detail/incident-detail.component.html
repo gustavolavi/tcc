@@ -1,12 +1,18 @@
-<p>incident-detail works!</p>
-
-<div *ngIf="incident" class="incidents">
-    <h2>{{incident.title | uppercase}} Details</h2>
-    <div><span>User: </span>{{incident.user.name}}</div>
-    <div *ngIf="incident.employee != null"><span>Employee: </span>{{incident.employee.user.name}}</div>
-    <div><span>Description: </span>{{incident.description}}</div>
-    <div>
+<div class="container mt-3" *ngIf="incident">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2>{{incident.title | uppercase}}</h2>
+      <div><span>User: </span>{{incident.user.name}}</div>
+      <div *ngIf="incident.employee != null"><span>Employee: </span>{{incident.employee.user.name}}</div>
+      <div><span>Description: </span>{{incident.description}}</div>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-sm-2">
       <a class="btn btn-info" routerLink="/incidents/add/{{incident.id}}">Edit</a>
+    </div>
+    <div class="col-sm-2">
       <button class="btn btn-primary" *ngIf="user.employee != null" (click)="getIncident()">Get incident</button>
     </div>
+  </div>
 </div>

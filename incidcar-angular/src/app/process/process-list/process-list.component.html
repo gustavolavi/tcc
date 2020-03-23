@@ -1,10 +1,18 @@
-<div class="processes">
-    <div *ngFor="let process of processes; let i=index;">
-        <h2>{{process.title}}</h2>
-        <a class="btn btn-link" routerLink="/processes/{{process.id}}">detalhes</a>
-        <div>
-            {{process.description}}
+<div class="processes container mt-3">
+    <div class="row mb-3">
+        <h2>Process</h2>
+    </div>
+    <div class="row mb-5">
+        <a class="btn btn-info" routerLink="/processes/add">add</a>
+    </div>
+    <div class="row mb-3">
+        <div class="container" *ngFor="let process of processes; let i=index;">
+            <h2>{{process.title}}</h2>
+            <small>Manager: {{process.manager.user.name}}</small> - <a class="btn btn-link" routerLink="/processes/{{process.id}}">Detail</a>
+            <div>
+                {{process.description}}
+            </div>
+            <hr />
         </div>
-        <hr />
     </div>
 </div>

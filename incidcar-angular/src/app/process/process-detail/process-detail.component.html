@@ -1,22 +1,30 @@
-<div *ngIf="process" class="process">
-    <div class="row">
-        <h2>{{process.title | uppercase}} Details</h2>
-    </div>
-    <div class="row">
-        <div *ngIf="process.manager != null"><span>Manager: </span>{{process.manager.user.name}}</div>
-        <div><strong>Description: </strong>{{process.description}}</div>
-    </div>
-    <div class="row">
-        <div class="card">
-            <ul class="list-group list-group-flush" *ngFor="let task of process.tasks; let in=index">
-                <li class="list-group-item">
-                    <p><strong>name: </strong> {{task.name}} </p>
-                    <p><strong>description: </strong>{{task.description}}</p>
-                </li>
-            </ul>
+<div *ngIf="process" class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2>{{process.title | uppercase}} Details</h2>
         </div>
     </div>
-    <div>
-        <a class="btn btn-info" routerLink="/processes/add/{{process.id}}">Edit</a>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div *ngIf="process.manager != null"><span>Manager: </span>{{process.manager.user.name}}</div>
+            <div><strong>Description: </strong>{{process.description}}</div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <ul class="list-group list-group-flush" *ngFor="let task of process.tasks; let in=index">
+                    <li class="list-group-item">
+                        <p><strong>name: </strong> {{task.name}} </p>
+                        <p><strong>description: </strong>{{task.description}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-3">
+            <a class="btn btn-info" routerLink="/processes/add/{{process.id}}">Edit</a>
+        </div>
     </div>
 </div>
