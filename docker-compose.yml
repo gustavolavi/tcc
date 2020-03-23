@@ -42,10 +42,13 @@ services:
         command: mvn spring-boot:run
         ports:
         - "8761:8761"
+    
 
     incident0:
         container_name: incident0
         depends_on:
+            - eureka
+        links:
             - eureka
         build: ./incidcar-cics
         working_dir: /incidcar-cics
@@ -59,10 +62,12 @@ services:
         command: mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9000
         ports:
         - "9000:9000"
-    
+
     incident1:
         container_name: incident1
         depends_on:
+            - eureka
+        links:
             - eureka
         build: ./incidcar-cics
         working_dir: /incidcar-cics
@@ -82,6 +87,9 @@ services:
         depends_on:
             - incident0
             - incident1
+        links:
+            - incident0
+            - incident1
         build: ./incidcar-zuul
         working_dir: /incidcar-zuul
         volumes:
@@ -89,6 +97,8 @@ services:
         - ~/.m2:/root/.m2
         expose:
             - "8181"
-        command: mvn spring-boot:run
+        command: >
+            sh -c "sleep 180s &&
+                   mvn spring-boot:run"
         ports:
         - "8181:8181"
