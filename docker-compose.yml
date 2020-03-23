@@ -1,0 +1,83 @@
+version: "3"
+
+services: 
+
+    docker-mysql:
+        restart: always
+        container_name: docker-mysql
+        image: mysql
+        environment:
+            MYSQL_DATABASE: incident
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_HOST: '%'
+        ports:
+            - "6033:3306"
+        healthcheck:
+            test: "/usr/bin/mysql --user=root --password=root--execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
+
+    phpmyadmin:
+        depends_on:
+            - docker-mysql
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        ports:
+            - '3000:80'
+        environment:
+            PMA_HOST: docker-mysql
+            MYSQL_ROOT_PASSWORD: root 
+
+            
+    eureka:
+        container_name: eureka
+        build: ./incidcar-eureka
+        working_dir: /incidcar-eureka
+        volumes:
+        - ./incidcar-eureka:/incidcar-eureka
+        expose:
+            - "8761"
+        command: mvn spring-boot:run
+        ports:
+        - "8761:8761"
+
+    incident0:
+        container_name: incident0
+        build: ./incidcar-cics
+        working_dir: /incidcar-cics
+        volumes:
+        - ./incidcar-cics:/incidcar-cics
+        expose:
+            - "9000"
+        environment:
+            WAIT_HOSTS: mysql:3306
+        command: mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9000
+        ports:
+        - "9000:9000"
+    
+    incident1:
+        container_name: incident1
+        build: ./incidcar-cics
+        working_dir: /incidcar-cics
+        volumes:
+        - ./incidcar-cics:/incidcar-cics
+        expose:
+            - "9001"
+        environment:
+            WAIT_HOSTS: mysql:3306
+        command: mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=9001
+        ports:
+        - "9001:9001"
+
+    zuul:
+        container_name: zuul
+        build: ./incidcar-zuul
+        working_dir: /incidcar-zuul
+        volumes:
+        - ./incidcar-zuul:/incidcar-zuul
+        expose:
+            - "8181"
+        command: mvn spring-boot:run
+        ports:
+        - "8181:8181"
