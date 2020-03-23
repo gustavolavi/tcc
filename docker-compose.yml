@@ -35,7 +35,8 @@ services:
         build: ./incidcar-eureka
         working_dir: /incidcar-eureka
         volumes:
-        - ./incidcar-eureka:/incidcar-eureka
+        - ./incidcar-eureka:/incidcar-eureka        
+        - ~/.m2:/root/.m2
         expose:
             - "8761"
         command: mvn spring-boot:run
@@ -44,10 +45,13 @@ services:
 
     incident0:
         container_name: incident0
+        depends_on:
+            - eureka
         build: ./incidcar-cics
         working_dir: /incidcar-cics
         volumes:
         - ./incidcar-cics:/incidcar-cics
+        - ~/.m2:/root/.m2
         expose:
             - "9000"
         environment:
@@ -58,10 +62,13 @@ services:
     
     incident1:
         container_name: incident1
+        depends_on:
+            - eureka
         build: ./incidcar-cics
         working_dir: /incidcar-cics
         volumes:
         - ./incidcar-cics:/incidcar-cics
+        - ~/.m2:/root/.m2
         expose:
             - "9001"
         environment:
@@ -72,10 +79,14 @@ services:
 
     zuul:
         container_name: zuul
+        depends_on:
+            - incident0
+            - incident1
         build: ./incidcar-zuul
         working_dir: /incidcar-zuul
         volumes:
         - ./incidcar-zuul:/incidcar-zuul
+        - ~/.m2:/root/.m2
         expose:
             - "8181"
         command: mvn spring-boot:run
