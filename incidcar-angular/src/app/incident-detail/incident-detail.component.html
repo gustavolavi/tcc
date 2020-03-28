@@ -1,18 +1,39 @@
 <div class="container mt-3" *ngIf="incident">
   <div class="row mb-5">
-    <div class="col-12">
+    <div class="col-12 mt-3">
       <h2>{{incident.title | uppercase}}</h2>
       <div><span>User: </span>{{incident.user.name}}</div>
+      <div><span>Status: </span>{{incident.status}}</div>
       <div *ngIf="incident.employee != null"><span>Employee: </span>{{incident.employee.user.name}}</div>
       <div><span>Description: </span>{{incident.description}}</div>
+    </div>
+    <div class="col-12 mt-3" *ngIf="incident.comments">
+      <ul *ngFor="let incidentComments of incident.comments">
+        <li>
+          <div>{{incidentComments.description}}</div>
+          <div>{{incidentComments.user.name}}</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-12 mt-3" *ngIf="hasComment">
+      <div class="form-group">
+        <label class="form-label" for="description">comment:</label>
+        <textarea id="description" class="form-control" [(ngModel)]="comment.description"
+          placeholder="comment"></textarea>
+      </div>
+      <button class="btn btn-primary" (click)="addComment()">Add comment</button>
     </div>
   </div>
   <div class="row mb-5">
     <div class="col-sm-2">
       <a class="btn btn-info" routerLink="/incidents/add/{{incident.id}}">Edit</a>
     </div>
-    <div class="col-sm-2">
-      <button class="btn btn-primary" *ngIf="user.employee != null" (click)="getIncident()">Get incident</button>
+    <div class="col-sm-2" *ngIf="hasEdit">
+      <button class="btn btn-primary" (click)="updateIncident()">Get incident</button>
+    </div>
+    <div *ngIf="hasClose" class="col-sm-2">
+      <button class="btn btn-primary" (click)="closeIncident()">Close incident</button>
     </div>
   </div>
 </div>

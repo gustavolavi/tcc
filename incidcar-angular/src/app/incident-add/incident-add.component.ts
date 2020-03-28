@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class IncidentAddComponent implements OnInit {
   user: User = { email: '', id: 0, name: '', password: '', username: '' };
-  @Input() incidentData: Incident = { id: 0, title: '', description: '', user: null, employee: null };
+  @Input() incidentData: Incident = { id: 0, title: '', description: '', status:"NEW", user: null, employee: null, comments:null };
   loading : boolean = true;
 
   constructor(

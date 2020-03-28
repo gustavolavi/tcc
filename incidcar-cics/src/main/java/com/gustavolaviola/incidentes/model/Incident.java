@@ -2,12 +2,14 @@ package com.gustavolaviola.incidentes.model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
+
+import com.gustavolaviola.incidentes.model.enums.StatusIncident;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,7 +33,15 @@ public class Incident implements Serializable{
 	private Employee employee;
 
 	private String title;
+	
 	@Lob
 	private String description;
+
+	@Enumerated(EnumType.STRING)
+	private StatusIncident status;
+
+	
+    @OneToMany(mappedBy = "incident",cascade = CascadeType.ALL)
+    private List<Comments> comments;
 	
 }
