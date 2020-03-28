@@ -25,11 +25,13 @@
                     <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">Sing Out</button>
                 </div>
             </div>
+            
             <ng-template #elseLogede>
                 <div class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" [(ngModel)]="user.username" type="username" placeholder="username" aria-label="username">
                     <input class="form-control mr-sm-2" [(ngModel)]="user.password" type="password" placeholder="password" aria-label="password">
                     <button class="btn btn-outline-primary my-2 my-sm-0" (click)="login()">Sing In</button>
+                    <a class="btn btn-link my-2 my-sm-0" [routerLink]="['/create']">Sign up</a>
                 </div>
             </ng-template>
 

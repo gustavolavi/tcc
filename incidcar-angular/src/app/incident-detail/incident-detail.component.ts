@@ -57,6 +57,7 @@ export class IncidentDetailComponent implements OnInit {
       }
     }
   }
+  
   updateIncident() {
     this.incident.employee = this.user.employee;
     this.incident.status = "DOING";

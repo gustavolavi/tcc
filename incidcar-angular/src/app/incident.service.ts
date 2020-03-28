@@ -90,6 +90,13 @@ export class IncidentService {
     );
   }
 
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.endpoint + 'users', user, this.httpOptions).pipe(
+      catchError(this.handleError<any>('addUser'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

@@ -14,6 +14,7 @@ import { ProcessAddComponent } from './process/process-add/process-add.component
 import { ProcessListComponent } from './process/process-list/process-list.component';
 import { ProcessDetailComponent } from './process/process-detail/process-detail.component';
 import { HomeComponent } from './public/home/home.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HomeComponent } from './public/home/home.component';
     ProcessAddComponent,
     ProcessListComponent,
     ProcessDetailComponent,
-    HomeComponent
+    HomeComponent,
+    UserAddComponent
   ],
   imports: [
     BrowserModule,
