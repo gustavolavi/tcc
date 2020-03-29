@@ -6,7 +6,12 @@
         <h2>Incidents</h2>
     </div>
     <div class="row mb-5">
-        <a class="btn btn-info" routerLink="/incidents/add">add</a>
+        <div class="col-2">
+            <a class="btn btn-info col-12" routerLink="/incidents/add">add</a>
+        </div>
+        <div class="col-2" *ngIf="user.employee != null">
+            <button type="button" class="btn btn-primary btn-block col-12" (click)="generatePdf()">Save Report</button>
+        </div>
     </div>
     <div class="row mb-3">
         <div class="container" *ngFor="let inc of incidents; let i=index;">

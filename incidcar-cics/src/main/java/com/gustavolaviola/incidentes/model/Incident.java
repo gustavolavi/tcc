@@ -41,7 +41,7 @@ public class Incident implements Serializable{
 	private StatusIncident status;
 
 	
-    @OneToMany(mappedBy = "incident",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "incident",cascade = CascadeType.MERGE)
     private List<Comments> comments;
 	
 }

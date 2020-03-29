@@ -40,7 +40,6 @@ export class IncidentDetailComponent implements OnInit {
 
   buttonValidate() {
     if (this.incident.status !== "CLOSED") {
-      console.log("entrou");
       if (this.user.id == this.incident.user.id) {
         this.hasComment = true;
       }
@@ -85,7 +84,7 @@ export class IncidentDetailComponent implements OnInit {
     this.comment.incident = { id: this.incident.id };
     this.incident.comments = this.incident.comments ? this.incident.comments : [];
     this.incident.comments.push(this.comment);
-
+    console.log(this.incident);
     this.rest.updateIncident(this.incident.id, this.incident).subscribe((result) => {
       this.incident = result
       this.buttonValidate();
